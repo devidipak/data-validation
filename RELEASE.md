@@ -2,6 +2,8 @@
 
 ## Major Features and Improvements
 
+* Performance improvement due to optimizing the NaN checking in
+  BasicStatsGenerator.
 * Add support for generating statistics from a pandas dataframe.
 * Performance improvement due to pre-allocating tf.Example in TFExampleDecoder.
 * Performance improvement due to merging common stats generator, numeric stats

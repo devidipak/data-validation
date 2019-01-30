@@ -203,16 +203,15 @@ class _PartialNumericStats(object):
   def update(
       self,
       value,
-      feature_type,
       values_and_weights_numeric_feat,
       weight = None):
     """Update the partial numeric statistics using the input value."""
+    isnan = math.isnan
     # Iterate through the value array and update the partial stats.
     for v in value:
       # If we have a NaN value, increment num_nan and continue to process
       # the next value.
-      if (feature_type == statistics_pb2.FeatureNameStatistics.FLOAT and
-          np.isnan(v)):
+      if isnan(v):
         self.num_nan += 1
         continue
       self.sum += v
@@ -707,7 +706,7 @@ class BasicStatsGenerator(stats_generator.CombinerStatsGenerator):
           # Update the partial numeric stats and append values
           # to the current batch of values and weights.
           accumulator[feature_name].numeric_stats.update(
-              value, feature_type, values_and_weights_numeric_feat,
+              value, values_and_weights_numeric_feat,
               weights[i][0] if self._weight_feature else None)
 
       # Update the num_vals_histogram summary for the feature based on the
